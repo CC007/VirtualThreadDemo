@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int width = 10;
         int height = 10;
-        Grid grid = new Grid(width, height);
-        Cell[][] cells = grid.getCells();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
         List<Thread> cellThreads = new ArrayList<>();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
@@ -27,11 +27,16 @@ public class Main {
                     }
                 });
                 cellThreads.add(cellThread);
+                // ...
             }
         }
-
+        // Wait for all cell threads to finish
         for (Thread cellThread : cellThreads) {
-            cellThread.join();
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                // ...
+            }
         }
     }
 }
