@@ -30,6 +30,14 @@ public class Main {
                 // ...
             }
         }
+        while (true) {
+            System.out.println(grid);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
         // Wait for all cell threads to finish
         for (Thread cellThread : cellThreads) {
             try {
