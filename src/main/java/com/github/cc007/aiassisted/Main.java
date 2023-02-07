@@ -22,11 +22,11 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        int rectangleSize = 30;
-        int updateIntervalNs = 500;
-        int renderIntervalMs = 100;
-        int width = 50;
-        int height = 50;
+        int rectangleSize = 10;
+        int updateIntervalNs = 250;
+        int renderIntervalMs = 500;
+        int width = 150;
+        int height = 150;
         Random random = new Random();
         Grid grid = Grid.of(width, height);
         Cell[][] cells = grid.cells();
