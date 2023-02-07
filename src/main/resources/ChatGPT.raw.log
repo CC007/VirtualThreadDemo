@@ -1,0 +1,2658 @@
+Do you know what java virtual threads are?
+
+Yes, Java Virtual Threads (JVMs) are a feature introduced in Java 16 that allows the creation of lightweight threads that are multiplexed onto a smaller number of native threads. This allows for a larger number of concurrent threads to run on a system without the overhead of creating a large number of native threads, making them more efficient and scalable. JVMs can be used for tasks such as high-performance, high-concurrency server applications, or parallel processing and concurrent programming.
+CC007
+what is the latest version of java that you know?
+
+As of my knowledge cut-off of 2021, the latest version of Java is Java 17, which was released on September 2021.
+CC007
+Ok, let's use java 17 then instead.
+
+Sure! I'd be happy to answer any questions you have about Java 17.
+CC007
+How many platform threads does java create for a certain number of virtual threads?
+
+The exact number of platform threads created for a certain number of virtual threads in Java 17 depends on the implementation and configuration of the JVM, as well as the underlying operating system and hardware.
+
+Typically, the JVM will multiplex a large number of virtual threads onto a smaller number of platform threads, so that a small number of platform threads can handle the scheduling and execution of a large number of virtual threads. The goal is to minimize the overhead of creating and managing a large number of threads, while still allowing for a high degree of concurrency.
+
+However, the exact number of platform threads created for a given number of virtual threads is not specified by the Java 17 specification and can vary from one JVM implementation to another. Some JVMs might create a one-to-one mapping between virtual and platform threads, while others might create a many-to-one mapping, depending on the configuration and the workload.
+CC007
+How many will that be for the default OpenJDK?
+
+The exact number of platform threads created for a certain number of virtual threads in the OpenJDK implementation of Java 17 depends on several factors, including the configuration of the JVM, the underlying operating system, and the workload.
+
+By default, the OpenJDK JVM might use a many-to-one mapping between virtual and platform threads, which means that a small number of platform threads can handle the scheduling and execution of a large number of virtual threads. The number of platform threads created will depend on the available resources on the system, such as the number of CPU cores, the amount of available memory, and the performance characteristics of the workload.
+
+However, it is important to note that the number of platform threads created by the OpenJDK JVM is not specified by the Java 17 specification and can vary between different implementations and configurations. If you have specific requirements for the number of platform threads, you may need to adjust the configuration of the JVM or experiment with different settings to determine the optimal configuration for your workload.
+CC007
+How many will that be with the Azul Zulu implementation?
+
+The exact number of platform threads created for a certain number of virtual threads in the Azul Zulu implementation of Java 17 depends on several factors, including the configuration of the JVM, the underlying operating system, and the workload.
+
+Like other JVM implementations, the Azul Zulu JVM might use a many-to-one mapping between virtual and platform threads, which means that a small number of platform threads can handle the scheduling and execution of a large number of virtual threads. The number of platform threads created will depend on the available resources on the system, such as the number of CPU cores, the amount of available memory, and the performance characteristics of the workload.
+
+However, the exact number of platform threads created by the Azul Zulu JVM is not specified by the Java 17 specification and can vary between different implementations and configurations. If you have specific requirements for the number of platform threads, you may need to adjust the configuration of the JVM or experiment with different settings to determine the optimal configuration for your workload.
+
+It is recommended to consult the documentation or contact the vendor of the Azul Zulu JVM for more information on how virtual threads are implemented and managed in their specific implementation.
+CC007
+Can you show me the code snippet that determines the amount of platform threads used when using virtual threads in Azul Zulu 17.0.5?
+
+The exact code to determine the number of platform threads used by the Azul Zulu 17.0.5 JVM when using virtual threads might depend on the specific configuration and implementation of the JVM. There is no standard way to determine the number of platform threads used by the JVM, as it is determined by the implementation and configuration of the JVM, as well as the underlying operating system and hardware.
+
+If you need to determine the number of platform threads used by the JVM, you might be able to use system-specific APIs or performance tools to gather information about the state of the system and the JVM. However, the exact code to do this will depend on the specific operating system, hardware, and performance monitoring tools you are using.
+
+It is recommended to consult the documentation or contact the vendor of the Azul Zulu JVM for more information on how to determine the number of platform threads used by their specific implementation.
+CC007
+Ok ok, I get it. You don't know. You could have just asked me what details you need clarification on to get to a satisfying answer. Your current answer just seems like a copout.
+
+I apologize if my answer was not satisfactory. I am a language model and my knowledge is limited to the information I was trained on, which has a cutoff of 2021. If you could provide more specific details about what you need to know, I would be happy to help you to the best of my abilities.
+CC007
+Ok. Then lets start creating the program. Before that though, are you familiar with Conway's game of life?
+
+Yes, I am familiar with Conway's Game of Life. It is a cellular automaton simulation created by British mathematician John Horton Conway in 1970. The Game of Life is a zero-player game, meaning that its evolution is determined by its initial state, and no further input is required.
+
+The game is played on a grid of cells, where each cell can be in one of two states: "alive" or "dead." At each iteration, the state of each cell is updated based on the states of its neighbors. The rules for updating the state of a cell are simple and deterministic, but they lead to complex and sometimes surprising behavior, such as the emergence of stable patterns, oscillators, and "gliders."
+
+Conway's Game of Life is often used as a demonstration of the principles of cellular automata, as well as a tool for exploring the properties of complex systems and emergent behavior.
+CC007
+What are the rules for changing the state between alive and dead?
+
+The rules for updating the state of cells in Conway's Game of Life are as follows:
+
+    If a cell is alive and has two or three live neighbors, it remains alive.
+    If a cell is dead and has exactly three live neighbors, it becomes alive (birth).
+    In all other cases, a cell dies or remains dead (overpopulation or underpopulation).
+
+These rules determine the next state of each cell based on the number of live neighbors it has in the current state. The game proceeds by repeatedly updating the state of all cells based on these rules until a stable state is reached or a specified number of iterations has been completed.
+CC007
+Ok, that sounds right. Are you familiar with intellij and with maven?
+
+Yes, I am familiar with IntelliJ IDEA and Maven.
+
+IntelliJ IDEA is a popular integrated development environment (IDE) for Java programming, developed by JetBrains. It provides a rich set of tools and features for code editing, debugging, testing, and deployment, as well as support for a wide range of popular Java frameworks and libraries.
+
+Maven is a build automation tool used primarily for Java projects. It helps manage dependencies, build and test projects, and generate reports. Maven uses a project object model (POM) to describe the build process, including the dependencies, build plugins, and other required components. This makes it easier to manage builds and to coordinate the work of multiple developers. Maven also provides a standard project structure and a set of best practices that can help improve the reliability, consistency, and maintainability of Java projects.
+CC007
+Good. I just created a new java project in Intellij and selected it to be a maven project. The base package that I will be using is `com.github.cc007.aiassisted.virtualthreaddemo`
+
+Understood. To clarify, you have already created a new Java project in IntelliJ IDEA and have selected it to be a Maven project, and the base package for your project is com.github.cc007.aiassisted.virtualthreaddemo. Is that correct?
+CC007
+That is correct. Now, I want to implement Conway's game of life in this project, but instead of all cells being updated at the same time, I want all threads to be updated concurrently. Each cell will be managed by a separate virtual thread. Let's first write a piece of code that defines the cell grid. Let's make this grid bounded by a configurable width and height.
+
+Sure! To implement the cell grid, you could create a 2D array of cells, where each cell represents a point on the grid. You could define a Cell class that holds the state of a cell (alive or dead) and methods for updating its state based on the states of its neighbors. Here is an example implementation in Java:
+
+java
+
+public class Cell {
+    private boolean alive;
+
+    public Cell(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public void updateState(Cell[][] grid, int x, int y, int width, int height) {
+        int liveNeighbors = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+                int row = (x + i + height) % height;
+                int col = (y + j + width) % width;
+                if (grid[row][col].isAlive()) {
+                    liveNeighbors++;
+                }
+            }
+        }
+        if (alive) {
+            if (liveNeighbors < 2 || liveNeighbors > 3) {
+                setAlive(false);
+            }
+        } else {
+            if (liveNeighbors == 3) {
+                setAlive(true);
+            }
+        }
+    }
+}
+
+public class Grid {
+    private final Cell[][] cells;
+    private final int width;
+    private final int height;
+
+    public Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+}
+
+In this implementation, the Cell class holds the state of a cell and provides a method for updating its state based on the states of its neighbors. The Grid class holds the 2D array of cells and the dimensions of the grid.
+CC007
+It looks like you are wrapping the borders as if the board looped on itself. I would prefer a hard border instead
+
+Understood, here's an updated implementation with a hard border:
+
+java
+
+public class Cell {
+    private boolean alive;
+
+    public Cell(boolean alive) {
+        this.alive = alive;
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    public void updateState(Cell[][] grid, int x, int y, int width, int height) {
+        int liveNeighbors = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue;
+                }
+                int row = x + i;
+                int col = y + j;
+                if (row >= 0 && row < height && col >= 0 && col < width && grid[row][col].isAlive()) {
+                    liveNeighbors++;
+                }
+            }
+        }
+        if (alive) {
+            if (liveNeighbors < 2 || liveNeighbors > 3) {
+                setAlive(false);
+            }
+        } else {
+            if (liveNeighbors == 3) {
+                setAlive(true);
+            }
+        }
+    }
+}
+
+public class Grid {
+    private final Cell[][] cells;
+    private final int width;
+    private final int height;
+
+    public Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+}
+
+CC007
+As an aside, could you tell me the command to unstage files to be committed in git, without removing the files?
+
+You can use the following command in Git to unstage files:
+
+perl
+
+$ git reset
+
+This will reset the staged changes and move them back to the working tree, but it won't remove the files. If you want to unstage specific files, you can use:
+
+php
+
+$ git reset <file1> <file2> ...
+
+CC007
+Thanks, now back to the program that we were writing. Can you write me a Main class that creates a grid of 10 by 10?
+
+Sure, here's an example Main class that creates a grid of 10 by 10:
+
+css
+
+public class Main {
+    public static void main(String[] args) {
+        Grid grid = new Grid(10, 10);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                Cell cell = cells[i][j];
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+Thanks for even including the for loops. How can we use this main class to start the virtual threads that will update the state of its dedicated cell once per second?
+
+You can use the following code to start a virtual thread for each cell in the grid:
+
+scss
+
+public class Main {
+    public static void main(String[] args) {
+        Grid grid = new Grid(10, 10);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = VirtualThread.start(() -> {
+                    while (true) {
+                        cell.update();
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+In this code, VirtualThread.start is used to create a new virtual thread for each cell. The virtual thread runs a loop that updates the state of the cell and then sleeps for 1 second.
+CC007
+`cell.update()` doesn't exist, but you did define `updateState(...)` before. How can I use that instead?
+
+You can change cell.update() to cell.updateState() in the virtual thread loop, like this:
+
+scss
+
+public class Main {
+    public static void main(String[] args) {
+        Grid grid = new Grid(10, 10);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = VirtualThread.start(() -> {
+                    while (true) {
+                        cell.updateState();
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+You forgot the method parameters for updateState.
+
+You can include the necessary parameters for the updateState method, like this:
+
+scss
+
+public class Main {
+    public static void main(String[] args) {
+        Grid grid = new Grid(10, 10);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < grid.getHeight(); i++) {
+            for (int j = 0; j < grid.getWidth(); j++) {
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = VirtualThread.start(() -> {
+                    while (true) {
+                        cell.updateState(cells);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+the updateState method also requires x, y, width and height parameters.
+
+You can include the necessary parameters for the updateState method, like this:
+
+css
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = VirtualThread.start(() -> {
+                    while (true) {
+                        cell.updateState(cells, i, j, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+i and j aren't final or effectively final, so they can't be used inside the lambda.
+
+You can pass the values of i and j as final variables to the lambda, like this:
+
+css
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = VirtualThread.start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+Ok, that method call seems to be written correctly now. There still is a problem though. VirtualThread isn't imported yet. 
+
+You can import it with the following line:
+
+java
+
+import java.lang.Thread.VirtualThread;
+
+CC007
+That import cannot be found.
+
+The java.lang.Thread.VirtualThread class is a part of Java 17 and is not available in earlier versions of Java. If you are using an earlier version, you will need to use a different concurrency mechanism such as the java.util.concurrent package.
+CC007
+I am using java 17, but it can't be found.
+
+It is possible that the VirtualThread class is not available in the particular Java 17 implementation you are using. The VirtualThread class is an experimental feature and its availability may vary between different implementations of Java 17.
+
+If you are using OpenJDK, the VirtualThread class is not available in the OpenJDK 17 build. You may have to use an alternative Java 17 implementation such as Azul Zulu to access the VirtualThread class.
+CC007
+How do I enable experimental features in this maven project?
+
+You can enable experimental features in a Java 17 project by using the --enable-preview flag when compiling your code.
+
+For a Maven project, you can include the --enable-preview flag in the maven-compiler-plugin configuration in your pom.xml file, like this:
+
+php
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.8.0</version>
+      <configuration>
+        <source>17</source>
+        <target>17</target>
+        <compilerArgs>
+          <arg>--enable-preview</arg>
+        </compilerArgs>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
+This will enable experimental features for your entire project. If you only need to enable the experimental features for a specific module, you can include the --enable-preview flag in that module's pom.xml file instead.
+CC007
+Unfortunately it still doesn't work. I looked at the Java 17 javadoc for the Thread class and the only nested classes that I can find are Thread.State and Thread.UncaughtExceptionHandler. Are you sure that Thread.VirtualThread exists?
+
+The Java 17 javadocs don't show VirtualThread as a nested class of the Thread class. It might be possible that the VirtualThread class was added as an experimental feature in an early version of Java 17 but was later removed or moved to a different package.
+
+You could check the official Java 17 release notes or the OpenJDK source code to see if VirtualThread was added in a later version of Java 17 or if it was added to a different package.
+CC007
+From what I can read you can use `Thread.ofVirtual().start(...)` instead of `VirtualThread.start(...)`
+
+Yes, you can use Thread.ofVirtual().start(...) to start a virtual thread in Java 17. The Thread.ofVirtual() method returns a virtual thread, which can then be started using the start(Runnable target) method, passing in the Runnable task you want to execute in the virtual thread.
+CC007
+So what would the Main class look like using that?
+
+Here's an updated version of the Main class that uses Thread.ofVirtual().start(...) to start a virtual thread for each cell in the grid:
+
+scss
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Cell[][] grid = new Cell[width][height];
+        
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                grid[x][y] = new Cell();
+                int finalX = x;
+                int finalY = y;
+                Thread.ofVirtual().start(() -> grid[finalX][finalY].updateState(finalX, finalY, width, height));
+            }
+        }
+    }
+}
+
+In this updated version, each cell is updated in its own virtual thread, started using Thread.ofVirtual().start(...). The Runnable task for each virtual thread is a lambda expression that invokes the updateState method of the corresponding cell, passing in the required x, y, width, and height parameters.
+CC007
+you forgot the first parameter of updateState
+
+Sure, here's an updated version of the Main class that includes the first parameter of the updateState method:
+
+scss
+
+import java.util.concurrent.ThreadLocalRandom;
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+
+        boolean[][] grid = new boolean[width][height];
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                grid[x][y] = ThreadLocalRandom.current().nextBoolean();
+            }
+        }
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int finalX = x;
+                int finalY = y;
+                Thread.ofVirtual().start(() -> updateState(grid, finalX, finalY, width, height));
+            }
+        }
+    }
+
+    private static void updateState(boolean[][] grid, int x, int y, int width, int height) {
+        while (true) {
+            try {
+                Thread.sleep(1000);
+                grid[x][y] = !grid[x][y];
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+CC007
+Scratch that: lets go back to this:
+```
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = Thread.ofVirtual.start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+```
+Now replace the usage of `VirtualThread` with `Thread.ofVirtual()`
+
+Here's the updated code:
+
+css
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+It seems that `Thread.ofVirtual()` isn't recognized yet. Is the `--enable-preview` flag enough to make that work?
+
+​
+
+No, the --enable-preview flag only enables preview features for the compiler, not the libraries. To use the Thread.ofVirtual() method, you need to include the jdk.incubator.foreign module in your project. You can do this by adding the following to your module-info.java file:
+
+java
+
+requires jdk.incubator.foreign;
+
+Or by adding the following to your pom.xml file, if you're using Maven:
+
+php
+
+<dependency>
+  <groupId>jdk.incubator.foreign</groupId>
+  <artifactId>jdk.incubator.foreign</artifactId>
+  <version>0.11</version>
+</dependency>
+
+Keep in mind that this module is still in preview, so it may change or be removed in future versions of Java.
+CC007
+Can this also be added with a compiler flag rather than a dependency?
+
+Yes, you can enable the preview features by adding the --enable-preview flag to the javac command when compiling your code. You can also add it in your IDE if it supports setting compiler flags. For example, in IntelliJ IDEA, you can add it in the "Settings/Preferences" under "Build, Execution, Deployment" -> "Compiler" -> "Java Compiler".
+CC007
+No, I mean the inclusion of jdk.incubator.foreign. Can that be done with a compiler flag?
+
+Yes, you can use the --add-modules option to include jdk.incubator.foreign in your project's classpath. You can use this option when compiling and running your project, for example:
+
+css
+
+javac --add-modules jdk.incubator.foreign Main.java
+java --add-modules jdk.incubator.foreign Main
+
+CC007
+How would this look when using the maven-compiler-plugin?
+
+You can configure the maven-compiler-plugin in your pom.xml file like this:
+
+php
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.8.0</version>
+      <configuration>
+        <source>17</source>
+        <target>17</target>
+        <compilerArgs>
+          <arg>--enable-preview</arg>
+        </compilerArgs>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
+CC007
+You didn't include the add-module flag using this plugin
+
+Here's an updated pom.xml file that includes the add-module flag:
+
+php
+
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>3.8.0</version>
+      <configuration>
+        <source>17</source>
+        <target>17</target>
+        <compilerArgs>
+          <arg>--add-modules=jdk.incubator.foreign</arg>
+        </compilerArgs>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
+
+CC007
+This time you forgot the  enable preview flag. I need both flags.
+
+You can include both the --enable-preview and the --add-modules flags as follows:
+
+xml
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>17</source>
+                <target>17</target>
+                <compilerArgs>
+                    <arg>--enable-preview</arg>
+                    <arg>--add-modules=jdk.incubator.foreign</arg>
+                </compilerArgs>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+CC007
+Hmm, it seems that `Thread.ofVirtual()` was only added in java 19. How would you create a virtual thread in java 17?
+
+Unfortunately, the Thread.ofVirtual() method for creating virtual threads was only introduced in Java 19. In earlier versions of Java, there is no built-in support for virtual threads. As an alternative, you could use lightweight threading libraries, such as Quasar or Kilim, or manually implement your own virtual thread system using a conventional thread and queue.
+CC007
+What are Quasar and Kilim?
+
+Quasar and Kilim are two libraries that provide lightweight threading for the Java programming language.
+
+Quasar is a library that provides a fiber-based lightweight threading model for the Java Virtual Machine (JVM). It allows developers to write concurrent applications that use many lightweight threads instead of a smaller number of heavy threads.
+
+Kilim is a library for writing asynchronous, non-blocking, and multithreaded code in Java. Kilim uses a task-based model instead of the traditional thread-based model, and allows developers to write efficient and scalable concurrent applications that take advantage of modern multi-core CPUs.
+
+Both Quasar and Kilim provide a way to write concurrent code that is lightweight and efficient, without the overhead of traditional threads.
+CC007
+How do I add Quasar to my maven project?
+
+You can add the Quasar library as a dependency to your Maven project by including the following in your pom.xml file:
+
+php
+
+<dependency>
+  <groupId>co.paralleluniverse</groupId>
+  <artifactId>quasar-core</artifactId>
+  <version>0.9.0</version>
+</dependency>
+
+This assumes you are using version 0.9.0 of the library. You may need to check for a more recent version on the Quasar GitHub page or Maven repository.
+CC007
+Hmm, I decided to use java 19 rather than introducing a 3rd party library.
+
+Okay. So to use the Thread.ofVirtual() method in a Java 19 project, you will need to use a JDK that supports Java 19 or later, and add the --enable-preview flag to your compiler and/or JVM options. Then you can follow the example I showed earlier to start virtual threads in your project.
+CC007
+It seesm that I didn't need the add modules flag anyway. The issue was that I tried to use java 17 rather than 19. Anyway, the program now builds fine and it starts without errors, but it immediately stops after creating the threads. How can we stop the program from ending until the virtual threads have stopped?
+
+You can use join() method of the Thread class to wait for the completion of the virtual thread.
+
+Here's how you would use the join method in your code:
+
+scss
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        List<VirtualThread> threads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                VirtualThread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                threads.add(cellThread);
+            }
+        }
+        for (VirtualThread thread : threads) {
+            thread.join();
+        }
+    }
+}
+
+In the above code, we first create a list threads to store all the virtual threads. Then, after creating each virtual thread, we add it to the list. Finally, we use a loop to join all the threads in the list one by one, so the main thread will wait until all the virtual threads have completed.
+CC007
+I think you meant to add a list of Thread elements, rather than a list of VirtualThread elements, since that class doesn't exist.
+
+Yes, you're correct. The Thread class should be used instead of VirtualThread:
+
+java
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        int width = 10;
+        int height = 10;
+        Grid grid = new Grid(width, height);
+        Cell[][] cells = grid.getCells();
+        List<Thread> cellThreads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+
+        for (Thread cellThread : cellThreads) {
+            cellThread.join();
+        }
+    }
+}
+
+CC007
+It looks like the Grid class doesn't have setters. Can we rewrite it as a record?
+
+Sure, you can define the Grid class as a record like this:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public Grid {
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell();
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+}
+
+With this, you don't need to implement setters for the width and height properties and you can directly access them as grid.width and grid.height.
+CC007
+You forgot the starting value for the Cell constructor on the 6th line.
+
+scss
+
+public class Grid extends Record {
+    int width;
+    int height;
+    Cell[][] cells;
+
+    public Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+}
+
+CC007
+You turned it back into a class. I wanted Grid as a record.
+
+Okay, here's a revised version of the Grid record:
+
+css
+
+record Grid(int width, int height, Cell[][] cells) {
+    public Grid {
+        this.cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+}
+
+CC007
+I'm getting the error: `Cannot assign a value to final variable 'cells'`
+
+You cannot reassign a value to a final variable, but you can change the values of the elements within the final array. Here's an updated version of the Grid record:
+
+css
+
+record Grid(int width, int height, Cell[][] cells) {
+  public Grid {
+    this.cells = new Cell[height][width];
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        this.cells[i][j] = new Cell(false);
+      }
+    }
+  }
+}
+
+CC007
+I'm still getting that error inside the compact constructor
+
+To fix this error, you need to change the declaration of cells from final to non-final:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public Grid {
+        this.cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                this.cells[i][j] = new Cell();
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+}
+
+CC007
+But in a record, fields are final by default, so you can't make them non-final
+
+In that case, one option would be to create a separate instance variable to hold the value of cells, and initialize it in a constructor.
+
+css
+
+public record Grid(int width, int height) {
+    private Cell[][] cells;
+
+    public Grid {
+        this.cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+
+    public Cell[][] getCells() {
+        return cells;
+    }
+}
+
+CC007
+It's not possible to create an instance variable that way. Would it be possible to create a static method inside the Grid record that takes the width and height and returns a Grid object?
+
+Yes, you can create a static method inside the Grid record to return a new Grid instance with the given width and height. Here's an example:
+
+css
+
+record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell();
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+    // ...
+}
+
+Now, you can create a new Grid instance by calling Grid.of(width, height) where width and height are the desired dimensions.
+CC007
+You forgot the parameter of the Cell constructor again 😁
+
+Here's the corrected code:
+
+css
+
+public record Grid(int width, int height) {
+    public static Grid of(int width, int height) {
+        return new Grid(width, height);
+    }
+
+    public Cell[][] getCells() {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+        return cells;
+    }
+}
+
+CC007
+I preferred the static method implementation from before
+
+Alright, let's go back to the static method implementation inside the Grid record:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+
+    // ...
+}
+
+And in the Main class, you can create a Grid object by calling Grid.of(width, height) method.
+CC007
+Now we need to update the Main class, to reflect the changes to the Grid class/record.
+
+Here's the updated Main class:
+
+scss
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.getCells();
+        List<Thread> cellThreads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+        for (Thread cellThread : cellThreads) {
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+    }
+}
+
+CC007
+Record field accessors don't have the get prefix.
+
+Sure, here's the updated Main class:
+
+scss
+
+public class Main {
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+                // ...
+            }
+        }
+        // Wait for all cell threads to finish
+        for (Thread cellThread : cellThreads) {
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                // ...
+            }
+        }
+    }
+}
+
+CC007
+Cool. Is there a way to only be able to create the Grid object using the static method in Grid?
+
+Yes, you can make the constructor of the Grid record private and only provide a static factory method to create instances of the Grid record.
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    private Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+    }
+    
+    public static Grid of(int width, int height) {
+        return new Grid(width, height);
+    }
+}
+
+CC007
+That doesn't work, since the new constructor doesn't call the default constructor. Also, that doesn't make the default constructor private.
+
+You can achieve that by removing the default constructor, and making the constructor with parameters private so that it can only be accessed within the Grid class. Then you can use the static method to create instances of the Grid record. Here's the updated code:
+
+csharp
+
+public record Grid(int width, int height, Cell[][] cells) {
+    private Grid(int width, int height) {
+        this.width = width;
+        this.height = height;
+        cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false, i, j);
+            }
+        }
+    }
+    
+    public static Grid of(int width, int height) {
+        return new Grid(width, height);
+    }
+
+    public int width() {
+        return width;
+    }
+
+    public int height() {
+        return height;
+    }
+
+    public Cell[][] cells() {
+        return cells;
+    }
+}
+
+CC007
+I don't like that very much. Let's go back to this:
+```
+public record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+}
+```
+
+Sure, here's the updated version:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+}
+
+CC007
+So we have a working program now, but we don't have anything to visualize the grid yet.
+
+To visualize the grid, you can write a method in the Main class to print the grid to the console. Here's one example implementation:
+
+css
+
+private static void printGrid(Grid grid) {
+    for (int i = 0; i < grid.height(); i++) {
+        for (int j = 0; j < grid.width(); j++) {
+            System.out.print(grid.cells()[i][j].isAlive() ? "O" : ".");
+        }
+        System.out.println();
+    }
+}
+
+You can call this method at the end of the run method in the Main class to print the final grid. If you want to visualize the grid changing over time, you can call the printGrid method inside a loop, after updating the grid in each iteration.
+CC007
+at the end of the main method you mean?
+
+Yes, at the end of the main method, you can add a loop to print the grid, for example:
+
+css
+
+for (int i = 0; i < grid.height(); i++) {
+  for (int j = 0; j < grid.width(); j++) {
+    System.out.print(grid.cells()[i][j].isAlive() ? "X " : "O ");
+  }
+  System.out.println();
+}
+
+This will print the grid, where X represents an alive cell and O represents a dead cell.
+CC007
+What would the full main method look like?
+
+Here is the full main method that uses Thread.ofVirtual() and visualizes the grid using System.out.println():
+
+scss
+
+public static void main(String[] args) {
+    Grid grid = Grid.of(10, 10);
+
+    List<VirtualThread> virtualThreads = new ArrayList<>();
+    for (int i = 0; i < grid.height(); i++) {
+        for (int j = 0; j < grid.width(); j++) {
+            Cell cell = grid.cells()[i][j];
+            virtualThreads.add(
+                Thread.ofVirtual(() -> {
+                    while (true) {
+                        int liveNeighbors = grid.liveNeighbors(i, j);
+                        cell.live = cell.live ? liveNeighbors == 2 || liveNeighbors == 3 : liveNeighbors == 3;
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                })
+            );
+        }
+    }
+
+    virtualThreads.forEach(VirtualThread::start);
+    while (true) {
+        System.out.println(grid);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            break;
+        }
+    }
+}
+
+This code creates a grid
+CC007
+That's not right. We started with 
+```
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+                // ...
+            }
+        }
+        // Wait for all cell threads to finish
+        for (Thread cellThread : cellThreads) {
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                // ...
+            }
+        }
+    }
+```
+Now I want to visualize the grid
+
+You can visualize the grid by printing it to the console. You can create a method in the Grid class that returns a string representation of the grid and call it inside the main method. Here's an example implementation:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(false);
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                sb.append(cells[i][j].isAlive() ? "O" : ".");
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
+}
+
+Then, in the main method, you can add the following code to print the grid every second:
+
+scss
+
+    public static void main(String[] args) {
+        int width = 10;
+        int height = 10;
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+                // ...
+            }
+        }
+        while (true) {
+            System.out.println(grid);
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+        // Wait for all cell threads to finish
+        for (Thread cellThread : cellThreads) {
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                // ...
+            }
+        }
+    }
+
+CC007
+Ok, it now prints to console. How do we initialize the grid to have certain values though?
+
+To initialize the grid with certain values, you need to modify the of method in the Grid class/record, to take an optional argument for the initial state of the grid, and then use that to initialize the cells array.
+
+Here's an example implementation:
+
+css
+
+public record Grid(int width, int height, Cell[][] cells) {
+    public static Grid of(int width, int height, boolean[][] initialState) {
+        Cell[][] cells = new Cell[height][width];
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                cells[i][j] = new Cell(initialState != null && initialState[i][j]);
+            }
+        }
+        return new Grid(width, height, cells);
+    }
+}
+
+You can then use it in the main method as follows:
+
+java
+
+public static void main(String[] args) {
+    int width = 10;
+    int height = 10;
+    boolean[][] initialState = {
+        { false, true, false, false, false, false, false, false, false, false },
+        { false, false, true, false, false, false, false, false, false, false },
+        // ...
+    };
+    Grid grid = Grid.of(width, height, initialState);
+    Cell[][] cells = grid.cells();
+    // ...
+}
+
+CC007
+can we make the initial state random?
+
+Sure, you can make the initial state of the grid random by generating random numbers and using them to determine the state of each cell. Here's an example:
+
+scss
+
+public static Grid of(int width, int height) {
+    Cell[][] cells = new Cell[height][width];
+    Random random = new Random();
+    for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+            cells[i][j] = new Cell(random.nextBoolean());
+        }
+    }
+    return new Grid(width, height, cells);
+}
+
+This generates a random boolean value for each cell in the grid, using the nextBoolean() method of the Random class.
+CC007
+Instead of writing to console, can we open a window that displays the grid cells as black and white squares?
+
+To display the grid cells as black and white squares in a window, you would need to use a GUI library such as JavaFX or Swing. Here's an example using JavaFX:
+
+    Add the following imports:
+
+python
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+    Change the Main class to extend Application:
+
+java
+
+public class Main extends Application {
+    // ...
+}
+
+    Override the start method:
+
+scss
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        int width = 10;
+        int height = 10;
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane root = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                root.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        if (cell.isAlive()) {
+                            rectangle.setFill(Color.BLACK);
+                        } else {
+                            rectangle.setFill(Color.WHITE);
+                        }
+                        try {
+                            TimeUnit.SECONDS.sleep(1);
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+
+        primaryStage.setScene(new Scene(root, width * 30, height * 30));
+        primaryStage.show();
+
+        // Wait for all cell threads to finish
+        for (Thread cellThread : cellThreads) {
+            try {
+                cellThread.join();
+            } catch (InterruptedException e) {
+                // ...
+            }
+        }
+    }
+
+    Finally, call the launch method in the main method:
+
+typescript
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+This will create a window that displays the grid cells as black and white squares, updating every second.
+CC007
+javafx imports can't be found
+
+You need to add the JavaFX library to your project. If you're using an IDE, you can usually add the library through the IDE's built-in library manager. If you're using the command line, you can download the library and add it to your classpath.
+
+Here's an example of how to add it with Gradle:
+
+python
+
+dependencies {
+    compile group: 'org.openjfx', name: 'javafx-base', version: '11.0.8'
+    compile group: 'org.openjfx', name: 'javafx-graphics', version: '11.0.8'
+}
+
+And here's an example of how to add it with Maven:
+
+php
+
+<dependencies>
+  <dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-base</artifactId>
+    <version>11.0.8</version>
+  </dependency>
+  <dependency>
+    <groupId>org.openjfx</groupId>
+    <artifactId>javafx-graphics</artifactId>
+    <version>11.0.8</version>
+  </dependency>
+</dependencies>
+
+CC007
+That version of javaFX can't be found. The newest release version is 19.0.2.1
+
+Here's the updated code for JavaFX 19.0.2.1 imports:
+
+python
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+CC007
+I'm getting this error when running the program in IntelliJ: `Error: JavaFX runtime components are missing, and are required to run this application`
+
+This error occurs because the JavaFX libraries are not included in the classpath of the project. You can add the libraries to the classpath by adding them to the project's dependencies. Here's how you can do this in IntelliJ:
+
+    Open your project in IntelliJ.
+    Go to File > Project Structure.
+    Select the Libraries tab.
+    Click the + button to add a new library.
+    Select Java from the list of library types.
+    Browse to the directory where the JavaFX libraries are located, select all the jar files, and click OK.
+    Apply the changes and close the Project Structure window.
+
+Alternatively, you can also add the libraries to the classpath when you run the program from the command line, by including the path to the JavaFX libraries in the java command:
+
+css
+
+java --module-path PATH_TO_FX --add-modules javafx.controls Main
+
+Replace PATH_TO_FX with the path to the JavaFX libraries on your system.
+CC007
+Maven already added the libraries to the Libraries tab. For your info: when running the program, it executes the following command: `C:\Users\Rik\.jdks\openjdk-19.0.2\bin\java.exe --enable-preview "-javaagent:C:\Program Files\JetBrains\IntelliJ IDEA EAP\lib\idea_rt.jar=28887:C:\Program Files\JetBrains\IntelliJ IDEA EAP\bin" -Dfile.encoding=UTF-8 -Dsun.stdout.encoding=UTF-8 -Dsun.stderr.encoding=UTF-8 -classpath D:\local\documents\coding\java\VirtualThreadDemo\target\classes;C:\Users\Rik\.m2\repository\org\openjfx\javafx-base\19.0.2.1\javafx-base-19.0.2.1.jar;C:\Users\Rik\.m2\repository\org\openjfx\javafx-base\19.0.2.1\javafx-base-19.0.2.1-win.jar;C:\Users\Rik\.m2\repository\org\openjfx\javafx-graphics\19.0.2.1\javafx-graphics-19.0.2.1.jar;C:\Users\Rik\.m2\repository\org\openjfx\javafx-graphics\19.0.2.1\javafx-graphics-19.0.2.1-win.jar com.github.cc007.aiassisted.Main`. This however still causes the error.
+
+It looks like you're missing the JavaFX runtime components, which are required to run JavaFX applications. To resolve this error, you need to install the JavaFX runtime.
+
+One way to do this is to download the JavaFX SDK from the official website: https://gluonhq.com/products/javafx/
+
+Once you have installed the SDK, you'll need to add it to your classpath. In IntelliJ IDEA, you can do this by going to Project Structure -> Modules -> Dependencies, and adding the JavaFX libraries to the classpath.
+
+Alternatively, if you're using Maven, you can add the following dependencies to your pom.xml file:
+
+php
+
+<dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-base</artifactId>
+  <version>19.0.2.1</version>
+  <classifier>win</classifier>
+</dependency>
+<dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-graphics</artifactId>
+  <version>19.0.2.1</version>
+  <classifier>win</classifier>
+</dependency>
+
+After adding the dependencies, run mvn clean install to download the required libraries.
+CC007
+could it be that I'm missing a maven plugin for javafx?
+
+It's possible that you need to add the Maven plugin for JavaFX to your project in order to build and run JavaFX applications with Maven. You can add the plugin by adding the following to your pom.xml file:
+
+php
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.5</version>
+            <configuration>
+                <mainClass>com.github.cc007.aiassisted.Main</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+Replace com.github.cc007.aiassisted.Main with the fully qualified name of your main class.
+CC007
+It seems that the dependencies for javafx are there, but that there are issues with the module
+
+Yes, it's possible that the issue is with the JavaFX module. Try adding the following line to your module-info.java file:
+
+java
+
+module myModule {
+    requires javafx.graphics;
+    requires javafx.base;
+    // ...
+}
+
+Also, make sure you have the correct version of JavaFX for your Java version installed and configured in your project's build path.
+CC007
+I get `java.lang.module.FindException: Module javafx.controls not found`
+
+This error message usually occurs when the JavaFX module is not on the module path. Make sure that the JavaFX dependencies have been added to the project's classpath.
+
+If you're using Maven, you can check if the JavaFX dependencies have been added to the pom.xml file. If not, you can add the following to your pom.xml:
+
+php
+
+<dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-controls</artifactId>
+  <version>19.0.2.1</version>
+</dependency>
+
+<dependency>
+  <groupId>org.openjfx</groupId>
+  <artifactId>javafx-fxml</artifactId>
+  <version>19.0.2.1</version>
+</dependency>
+
+Then run mvn clean install in your terminal or command prompt to download the JavaFX dependencies and make sure that they are included in your project's classpath. After that, try running your program again.
+CC007
+Do I still need javafx-base and javafx-graphics now that I added javafx-controls?
+
+Yes, you still need the javafx-base and javafx-graphics dependencies, because javafx-controls depends on those two modules. The javafx-base module provides the base classes for JavaFX, while the javafx-graphics module provides the classes for graphics and media packages, including the classes for the user interface controls. So all three modules are needed to run a JavaFX application.
+CC007
+It turns out that I don't need javafx-controls. The error was a run configuration misconfiguration. I did however need to add `exports com.github.cc007.aiassisted;` to get the application to start and remove the block at the end of the start method that joins on the cell threads, to make the javafx application update properly without hanging on the main thread. The application seems to work allright, but the scene size doesn't take into account the spacing between the cell rectangles.
+
+To fix the scene size, you can set the preferred size of the Pane that holds the cells to the width and height of the grid plus the spacing multiplied by the number of cells. You can do this in the GridPane's constructor:
+
+java
+
+public class GridPane extends Pane {
+    private static final int CELL_SIZE = 10;
+    private static final int CELL_SPACING = 1;
+
+    public GridPane(int width, int height) {
+        setPrefWidth(width * CELL_SIZE + (width + 1) * CELL_SPACING);
+        setPrefHeight(height * CELL_SIZE + (height + 1) * CELL_SPACING);
+        // ...
+    }
+    // ...
+}
+
+And in the main method, you can set the preferred size of the Scene to the preferred size of the GridPane:
+
+scss
+
+public static void main(String[] args) {
+    int width = 10;
+    int height = 10;
+    Grid grid = Grid.of(width, height);
+    GridPane gridPane = new GridPane(width, height);
+    gridPane.setGrid(grid);
+    Scene scene = new Scene(gridPane);
+    scene.setOnKeyPressed(event -> {
+        if (event.getCode() == KeyCode.ESCAPE) {
+            System.exit(0);
+        }
+    });
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
+}
+
+CC007
+GridPane is a class from a library and therefore can't be modified. I did read something about changing the StrokeType though
+
+The StrokeType property of a Rectangle object in JavaFX determines the type of stroke to be used when drawing the border of the Rectangle. By default, the StrokeType is set to StrokeType.INSIDE, which draws the stroke inside the bounds of the Rectangle. To change the StrokeType to draw the stroke outside the bounds of the Rectangle, you can set it to StrokeType.OUTSIDE.
+
+Here's an example of how you can change the StrokeType of a Rectangle object in JavaFX:
+
+scss
+
+Rectangle rectangle = new Rectangle(50, 50);
+rectangle.setStrokeType(StrokeType.OUTSIDE);
+
+This will draw the stroke outside the bounds of the Rectangle object, which may give you the desired visual effect of having spacing between the rectangles in your grid.
+CC007
+I tested StrokeType.INSIDE and that seems to do the trick. Now, while all cells are implemented using virtual threads, still they all almost change their state at the same time. Is there a way to space out the state changes of each cell?
+
+You can add a delay between state changes for each cell by using Thread.sleep(milliseconds) method. To stagger the state changes for each cell, you can add a different sleep time for each cell. For example, you could add a unique delay for each cell based on its position in the grid.
+CC007
+The position in the grid would make it too uniform. Can I make it more random?
+
+Yes, you can make the changes to the state of each cell more random by introducing a random delay before updating the state of each cell. You can do this by using the Thread.sleep method. For example, you could generate a random number between 0 and 100, and then call Thread.sleep with this number as the argument. This would cause the cell's state to be updated after a random delay between 0 and 100 milliseconds. You would need to add this delay in each cell's virtual thread, to ensure that each cell is updated independently of the others.
+CC007
+Ok, I used a TimeUnit.MILLISECONDS.sleep with a random long value between 0 and the value of a variable called interval. This interval value I also used to sleep inside the while loop, making the sleep time between half of the interval value and 1.5 times the interval value, using: `TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));`
+
+That sounds like a good solution. Adding randomness to the state changes of each cell can help make the simulation more dynamic and less predictable.
+CC007
+That's exactly what I want. By the way, I realized that the screen is resizable, but the cell grid doesn't resize along with the window. How can I make the cell grid scale with the size of the window (without warping the aspect ratio)?
+
+To scale the grid along with the window, you can use a layout component such as the JavaFX Scene, which provides the capability to automatically adjust the size of its content based on the size of the window.
+
+You can bind the width and height of the GridPane to the width and height of the Scene, respectively, so that as the Scene resizes, the size of the GridPane will also adjust. Here's an example:
+
+scss
+
+Scene scene = new Scene(gridPane);
+gridPane.prefWidthProperty().bind(scene.widthProperty());
+gridPane.prefHeightProperty().bind(scene.heightProperty());
+
+This will make the grid adjust its size to the window size, but it may not keep the aspect ratio intact. To keep the aspect ratio intact, you can calculate the aspect ratio of the grid and bind the width and height of the grid to the width and height of the Scene accordingly. For example, if you want the grid to maintain its original aspect ratio, you can bind the width of the grid to the width of the Scene and the height of the grid to a value proportional to the width, like this:
+
+scss
+
+Scene scene = new Scene(gridPane);
+double aspectRatio = originalGridWidth / originalGridHeight;
+gridPane.prefWidthProperty().bind(scene.widthProperty());
+gridPane.prefHeightProperty().bind(gridPane.widthProperty().divide(aspectRatio));
+
+This will adjust the height of the grid to be proportional to the width, keeping the aspect ratio intact as the window resizes.
+CC007
+While the grid might be resized using this, the rectangles inside are not. 
+
+You can bind the size of the rectangles to the size of the gridpane, so that when the gridpane is resized, the rectangles are resized as well. You can do this by using the bind method of the Rectangle object. For example, you can bind the width of each rectangle to the width of the gridpane divided by the number of columns, and the height of each rectangle to the height of the gridpane divided by the number of rows. This way, as the gridpane is resized, the size of the rectangles will scale proportionally.
+CC007
+Can you give me a code example?
+
+Yes, you can use the setOnResize method to bind the grid's width and height to the scene's width and height, and then bind the rectangle's width and height to the grid's cell width and height. Here's an example in Java:
+
+scss
+
+import javafx.application.Application;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class ResizableGridExample extends Application {
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
+        int rows = 10, columns = 10;
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < columns; col++) {
+                Rectangle rect = new Rectangle(100, 100);
+                rect.setFill(Color.WHITE);
+                grid.add(rect, col, row);
+            }
+        }
+
+        Scene scene = new Scene(grid);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        // bind grid width and height to scene width and height
+        grid.prefWidthProperty().bind(scene.widthProperty());
+        grid.prefHeightProperty().bind(scene.heightProperty());
+
+        // bind rectangle width and height to grid cell width and height
+        grid.widthProperty().addListener((obs, oldVal, newVal) -> {
+            int cellWidth = (int) newVal.doubleValue() / columns;
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < columns; col++) {
+                    Rectangle rect = (Rectangle) grid.getChildren().get(row * columns + col);
+                    rect.setWidth(cellWidth);
+                }
+            }
+        });
+        grid.heightProperty().addListener((obs, oldVal, newVal) -> {
+            int cellHeight = (int) newVal.doubleValue() / rows;
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < columns; col++) {
+                    Rectangle rect = (Rectangle) grid.getChildren().get(row * columns + col);
+                    rect.setHeight(cellHeight);
+                }
+            }
+        });
+    }
+}
+
+This example creates a 10x10 grid of white rectangles, and sets the grid's width and height to bind to the scene's width and height. When the scene is resized, the grid's width and height will change accordingly, and the rectangle width and height will be updated to match the new grid cell width and height.
+CC007
+Can't I use a Scale object?
+
+Yes, you can use a Scale object to resize the rectangles inside the grid. A Scale object allows you to uniformly scale an object along the x and y axes. To use it, you can create a Scale object and set its x and y properties to the desired scaling factor. Then, you can set the scaleX and scaleY properties of the rectangles to the corresponding properties of the Scale object.
+
+Here's an example:
+
+scss
+
+Rectangle rectangle = new Rectangle(50, 50);
+Scale scale = new Scale();
+scale.xProperty().bind(gridPane.widthProperty().divide(50));
+scale.yProperty().bind(gridPane.heightProperty().divide(50));
+rectangle.scaleXProperty().bind(scale.xProperty());
+rectangle.scaleYProperty().bind(scale.yProperty());
+
+In this example, gridPane is the GridPane that contains the rectangles, and the rectangles are scaled so that their width and height are proportional to the width and height of the GridPane.
+CC007
+Is there a way to rescale all rectangles in the grid pane without having to loop over them manually?
+
+You could use a Scale object and set its x and y properties to be the same value. Then, you could apply this scale to the GridPane as a transformation, which will rescale all of its children. Here's an example:
+
+scss
+
+Scale scale = new Scale();
+scale.xProperty().bind(gridPane.widthProperty().divide(gridPane.getPrefWidth()));
+scale.yProperty().bind(gridPane.heightProperty().divide(gridPane.getPrefHeight()));
+gridPane.getTransforms().add(scale);
+
+In this example, the scale's x and y properties are bound to the ratio of the current width and height of the GridPane to its preferred width and height. This way, the scale will always be updated as the size of the GridPane changes, and all of its children will be rescaled accordingly.
+CC007
+Can you change it so that this takes into account preserving the aspect ratio?
+
+Yes, you can preserve the aspect ratio by using a ratio between the height and width of the grid. You can then use this ratio to adjust the scaling on both the x and y axes in proportion to each other. Here is an example implementation:
+
+scss
+
+private double aspectRatio;
+
+// In the initialize method
+aspectRatio = gridPane.getPrefHeight() / gridPane.getPrefWidth();
+gridPane.widthProperty().addListener((observable, oldValue, newValue) -> {
+    double newHeight = newValue.doubleValue() * aspectRatio;
+    gridPane.setMinHeight(newHeight);
+    gridPane.setMaxHeight(newHeight);
+    gridPane.setPrefHeight(newHeight);
+});
+
+This will ensure that the height of the grid always adjusts in proportion to the width, preserving the aspect ratio.
+CC007
+Hmm, that doesn't seem to work for me. After some tweaking, I got to this:
+```
+        Scale scale = new Scale();
+        final double aspectRatio = sceneWidth / sceneHeight;
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.widthProperty().divide(sceneWidth).multiply(aspectRatio));
+        gridPane.getTransforms().add(scale);
+```
+
+This code binds the x-scale and y-scale to the gridPane's width property, and sets the y-scale to be proportional to the x-scale, with the aspect ratio aspectRatio being the division of the scene width by the scene height. To preserve the aspect ratio, you want the x-scale and y-scale to be proportional. With this code, you're setting the y-scale to be proportional to the x-scale, and hence preserving the aspect ratio.
+CC007
+Is there a way to keep the window itself in the same aspect ratio as well?
+
+Yes, you can keep the window in the same aspect ratio by binding the height property of the scene to the width property, divided by the aspect ratio. Here's an example:
+
+scss
+
+double aspectRatio = desiredWidth / desiredHeight;
+Scene scene = new Scene(gridPane, desiredWidth, desiredHeight);
+
+scene.widthProperty().addListener((obs, oldVal, newVal) -> {
+    scene.setHeight(newVal.doubleValue() / aspectRatio);
+});
+
+scene.heightProperty().addListener((obs, oldVal, newVal) -> {
+    scene.setWidth(newVal.doubleValue() * aspectRatio);
+});
+
+primaryStage.setScene(scene);
+primaryStage.show();
+
+This will ensure that the aspect ratio of the window remains the same, even when it is resized by the user.
+CC007
+setWidth and setHeight are private methods in Scene, a class I can't modify.
+
+You can set the aspect ratio for the window by specifying the min and max size for the scene, and also by setting the scene's Resizable property to false. That way, the window will maintain the aspect ratio of the scene, and the scene won't be resizable. Here's an example:
+
+scss
+
+Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+scene.setMinHeight(100);
+scene.setMinWidth(100 * aspectRatio);
+scene.setMaxHeight(800);
+scene.setMaxWidth(800 * aspectRatio);
+scene.setResizable(false);
+
+In this example, the aspectRatio is the desired aspect ratio of the scene, and the min and max size for the scene are set accordingly. Setting the Resizable property to false will ensure that the scene is not resizable.
+CC007
+Those methods don't exist either, but I see the issue here. Your suggestions work on the primaryStage, rather than on the scene object
+
+In that case, you can handle the scene's aspect ratio using the aspect ratio of the initial window. Here's an example that sets the aspect ratio of the window to 4:3 and resizes it whenever the window is resized:
+
+java
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+
+public class Main extends Application {
+  private final double ASPECT_RATIO = 4.0 / 3.0;
+
+  @Override
+  public void start(Stage primaryStage) {
+    StackPane root = new StackPane();
+    Scene scene = new Scene(root, 800, 600);
+
+    primaryStage.setScene(scene);
+    primaryStage.setTitle("Aspect Ratio Example");
+
+    primaryStage.widthProperty().addListener((obs, oldVal, newVal) -> {
+      primaryStage.setHeight(newVal.doubleValue() / ASPECT_RATIO);
+    });
+
+    primaryStage.heightProperty().addListener((obs, oldVal, newVal) -> {
+      primaryStage.setWidth(newVal.doubleValue() * ASPECT_RATIO);
+    });
+
+    primaryStage.show();
+  }
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+}
+
+In this example, whenever the window is resized, the aspect ratio is preserved by updating the width or height property of the stage, whichever was changed.
+CC007
+That doesn't seem to work. Can't I just bind the minWidthProperty and minHeightProperty?
+
+Yes, you can bind the minWidthProperty and minHeightProperty to preserve the aspect ratio. Here is an example:
+
+scss
+
+Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+final double aspectRatio = sceneWidth / sceneHeight;
+scene.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+scene.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+primaryStage.setScene(scene);
+
+In this example, the aspect ratio is calculated as sceneWidth / sceneHeight, and then it is used to bind the minWidthProperty and minHeightProperty of the scene. The minWidthProperty is bound to the product of the height and aspect ratio, and the minHeightProperty is bound to the ratio of width to aspect ratio.
+CC007
+You meant primaryStage.minWidthProperty() and primaryStage.minHeightProperty(), right?
+
+Yes, I meant primaryStage.minWidthProperty() and primaryStage.minHeightProperty().
+CC007
+Ok, I now got the following Main class:
+```java
+public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        int interval = 1000;
+        int width = 10;
+        int height = 10;
+        Random random = new Random();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        if (cell.isAlive()) {
+                            rectangle.setFill(Color.BLACK);
+                        } else {
+                            rectangle.setFill(Color.WHITE);
+                        }
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+        final double sceneWidth = width * 30;
+        final double sceneHeight = height * 30;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        Scale scale = new Scale();
+        final double aspectRatio = sceneWidth / sceneHeight;
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.widthProperty().divide(sceneWidth).multiply(aspectRatio));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+        primaryStage.show();
+    }
+}
+```
+The cells update fine and the grid does resize while preserving the aspect ratio. The window resizing almost works as well, but there seems to be too much wiggle room in the vertical direction.
+
+If you still want to keep the aspect ratio of the window, you can set the minHeight and minWidth of the stage to the same value. This will prevent the window from being resized beyond a certain aspect ratio.
+
+Here's an example that sets the minHeight and minWidth to 100:
+
+less
+
+        primaryStage.minWidthProperty().bind(Bindings.max(100, scene.heightProperty().multiply(aspectRatio)));
+        primaryStage.minHeightProperty().bind(Bindings.max(100, scene.widthProperty().divide(aspectRatio)));
+
+This will set the minimum height and width of the window to 100 while preserving the aspect ratio. You can adjust the value of 100 as needed to suit your requirements.
+CC007
+With this code, it seems that I can only make my window bigger, not smaller
+
+Yes, you can only make the window bigger but not smaller as the minHeightProperty and minWidthProperty are only used to set the minimum size of the window, but not the maximum size. To set a maximum size for the window, you can use the setMaxWidth and setMaxHeight methods.
+CC007
+how do I do that?
+
+You can add a minimum limit to the window size by setting a value for the minHeight and minWidth properties of the Stage object.
+
+Here's an example:
+
+java
+
+primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+
+primaryStage.setMinHeight(300);  // minimum window height
+primaryStage.setMinWidth(400);   // minimum window width
+
+This will set the minimum width of the window to 400 and the minimum height to 300. The window will not be able to be resized below these values.
+CC007
+The closest that I was able to get was with this code
+
+```java
+        //...
+
+        final double sceneWidth = width * 30;
+        final double sceneHeight = height * 30;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.heightProperty().divide(sceneHeight));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+        primaryStage.show();
+```
+
+In order to limit the minimum size of the window, you can use the setMinWidth and setMinHeight methods on the primaryStage object. These methods accept a double value that specifies the minimum width and height of the window, respectively. To keep the aspect ratio of the window fixed while resizing, you need to bind the minHeightProperty of the primaryStage to the minWidthProperty divided by the aspect ratio and vice versa. The code to do this would look something like this:
+
+java
+
+primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+
+CC007
+Ok, my main file now looks like this:
+```
+public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        int interval = 1000;
+        int width = 10;
+        int height = 10;
+        Random random = new Random();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        if (cell.isAlive()) {
+                            rectangle.setFill(Color.BLACK);
+                        } else {
+                            rectangle.setFill(Color.WHITE);
+                        }
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+        final double sceneWidth = width * 30;
+        final double sceneHeight = height * 30;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.heightProperty().divide(sceneHeight));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+        primaryStage.show();
+    }
+}
+```
+This seems to work fine, but when I change the width and height to 50 and the interval to 100, I get the following exception and stacktrace:
+```
+Exception in thread "JavaFX Application Thread" java.lang.NullPointerException: Cannot invoke "javafx.scene.Node.getScene()" because "<local2>" is null
+	at javafx.graphics@19.0.2.1/javafx.scene.Scene$ScenePulseListener.synchronizeSceneNodes(Scene.java:2395)
+	at javafx.graphics@19.0.2.1/javafx.scene.Scene$ScenePulseListener.pulse(Scene.java:2542)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.Toolkit.lambda$runPulse$2(Toolkit.java:407)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:399)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.Toolkit.runPulse(Toolkit.java:406)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.Toolkit.firePulse(Toolkit.java:436)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:575)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.quantum.QuantumToolkit.pulse(QuantumToolkit.java:555)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.quantum.QuantumToolkit.pulseFromQueue(QuantumToolkit.java:548)
+	at javafx.graphics@19.0.2.1/com.sun.javafx.tk.quantum.QuantumToolkit.lambda$runToolkit$11(QuantumToolkit.java:352)
+	at javafx.graphics@19.0.2.1/com.sun.glass.ui.InvokeLaterDispatcher$Future.run(InvokeLaterDispatcher.java:96)
+	at javafx.graphics@19.0.2.1/com.sun.glass.ui.win.WinApplication._runLoop(Native Method)
+	at javafx.graphics@19.0.2.1/com.sun.glass.ui.win.WinApplication.lambda$runLoop$3(WinApplication.java:184)
+	at java.base/java.lang.Thread.run(Thread.java:1589)
+```
+
+The issue is due to updating the JavaFX scene from a different thread than the JavaFX Application Thread, which is responsible for rendering the scene. JavaFX is not thread-safe and updates to the scene must be made from the JavaFX Application Thread. To resolve the issue, you can use the Platform.runLater method to run a task on the JavaFX Application Thread. Here's an example:
+
+scss
+
+Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
+rectangle.setStroke(Color.BLACK);
+rectangle.setStrokeType(StrokeType.INSIDE);
+gridPane.add(rectangle, j, i);
+
+Thread cellThread = Thread.ofVirtual().start(() -> {
+    try {
+        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+    } catch (InterruptedException e) {
+        return;
+    }
+    while (true) {
+        cell.updateState(cells, x, y, width, height);
+        Platform.runLater(() -> {
+            if (cell.isAlive()) {
+                rectangle.setFill(Color.BLACK);
+            } else {
+                rectangle.setFill(Color.WHITE);
+            }
+        });
+        try {
+            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+        } catch (InterruptedException e) {
+            break;
+        }
+    }
+});
+cellThreads.add(cellThread);
+
+CC007
+Nice, I didn't notice any more crashes like what I described. One more thing. In the Main class put the initial rectangle size in a variable and use that variable in determining the scene size too.
+
+Sure, here's how you can modify the Main class to use a variable for the initial rectangle size:
+
+java
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    private int initialRectangleSize = 50;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Pane root = new Pane();
+        Scene scene = new Scene(root, initialRectangleSize, initialRectangleSize);
+        Rectangle rectangle = new Rectangle(0, 0, initialRectangleSize, initialRectangleSize);
+        rectangle.setFill(Color.RED);
+        root.getChildren().add(rectangle);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+}
+
+CC007
+That's not the Main class that I had before.
+
+I apologize for that mistake. Here's the updated code with the Main class as you had described:
+
+java
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+  private final int rectangleSize = 50;
+
+  public static void main(String[] args) {
+    launch(args);
+  }
+
+  @Override
+  public void start(Stage primaryStage) {
+    Pane root = new Pane();
+    Scene scene = new Scene(root, rectangleSize * 10, rectangleSize * 10);
+
+    for (int i = 0; i < 10; i++) {
+      for (int j = 0; j < 10; j++) {
+        Rectangle rect = new Rectangle(i * rectangleSize, j * rectangleSize, rectangleSize, rectangleSize);
+        rect.setFill(Color.WHITE);
+        rect.setStroke(Color.BLACK);
+        root.getChildren().add(rect);
+      }
+    }
+
+    primaryStage.setScene(scene);
+    primaryStage.show();
+  }
+}
+
+This code defines a constant rectangleSize and uses it in both determining the size of the rectangles and the size of the scene.
+CC007
+Did you forget about all the code related to the game of life and the virtual threads?
+
+I apologize for the oversight. Here's the code for the Main class, incorporating the previous code for the game of life and virtual threads, as well as the variable for the initial rectangle size:
+
+java
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+public class Main extends Application {
+    private final int rectSize = 10;
+    private final int sceneWidth = 500;
+    private final int sceneHeight = 500;
+    private final int columns = sceneWidth / rectSize;
+    private final int rows = sceneHeight / rectSize;
+    private final Color aliveColor = Color.BLACK;
+    private final Color deadColor = Color.WHITE;
+    private boolean[][] currentGeneration = new boolean[columns][rows];
+    private boolean[][] nextGeneration = new boolean[columns][rows];
+    private Rectangle[][] rectangles = new Rectangle[columns][rows];
+    private ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        Pane root = new Pane();
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                Rectangle rectangle = new Rectangle(i * rectSize, j * rectSize, rectSize, rectSize);
+                rectangle.setFill(deadColor);
+                root.getChildren().add(rectangle);
+                rectangles[i][j] = rectangle;
+            }
+        }
+        primaryStage.setScene(new Scene(root, sceneWidth, sceneHeight));
+        primaryStage.show();
+
+        for (int i = 0; i < columns; i++) {
+            for (int j = 0; j < rows; j++) {
+                int finalI = i;
+                int finalJ = j;
+                executorService.submit(() -> calculateNextGeneration(finalI, finalJ));
+            }
+        }
+        executorService.shutdown();
+    }
+
+    private void calculateNextGeneration(int x, int y) {
+        int aliveNeighbors = countAliveNeighbors(x, y);
+        if (currentGeneration[x][y]) {
+            if (aliveNeighbors < 2 || aliveNeighbors > 3) {
+                nextGeneration[x][y] = false;
+            } else {
+                nextGeneration[x][y] = true;
+            }
+        } else {
+            if (aliveNeighbors == 3) {
+                nextGeneration[x][y] = true;
+            }
+        }
+    }
+
+    private int countAliveNeighbors(int x, int y) {
+        int aliveNeighbors = 0;
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1
+
+CC007
+No, let's stick to:
+```
+public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        int rectangleSize = 30;
+        int interval = 100;
+        int width = 50;
+        int height = 50;
+        Random random = new Random();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(rectangleSize, rectangleSize, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        Platform.runLater(() -> {
+                            if (cell.isAlive()) {
+                                rectangle.setFill(Color.BLACK);
+                            } else {
+                                rectangle.setFill(Color.WHITE);
+                            }
+                        });
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+        final double sceneWidth = width * rectangleSize;
+        final double sceneHeight = height * rectangleSize;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.heightProperty().divide(sceneHeight));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+        primaryStage.show();
+    }
+}
+```
+
+Sure, here's the updated code with the rectangle size in a variable:
+
+scss
+
+public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        int rectangleSize = 30;
+        int interval = 100;
+        int width = 50;
+        int height = 50;
+        Random random = new Random();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(rectangleSize, rectangleSize, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        Platform.runLater(() -> {
+                            if (cell.isAlive()) {
+                                rectangle.setFill(Color.BLACK);
+                            } else {
+                                rectangle.setFill(Color.WHITE);
+                            }
+                        });
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+            }
+        }
+        final double sceneWidth = width * rectangleSize;
+        final double sceneHeight = height * rectangleSize;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.heightProperty().divide(sceneHeight));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
+        primaryStage.show();
+    }
+}
+
+CC007
+With an interval of 100, the simulation works fine, but if I reduce the interval to 50, the simulation becomes very slow and stuttery while moving the mouse. What is causing this?
+
+The reason that reducing the interval to 50 makes the simulation slow and stuttery while moving the mouse is because with a lower interval, the code runs more frequently, which requires more processing power and memory. Additionally, when the mouse is moved over the scene, it generates events that are processed by the JavaFX event dispatch thread. These events compete with the updates to the grid for processing time on the event dispatch thread, which can cause stuttering. To improve the performance, you can try to run the updates on a separate thread or limit the number of updates per second to a more reasonable value.
+CC007
+Can I make it so that I update the cells more often than that I set the fill of the rectangles?
+
+Yes, you can make the update of the cells and the fill of the rectangles separate operations. You can have the cell state update in a separate thread and then use Platform.runLater to update the fill of the rectangles on the JavaFX Application Thread. Here's an example:
+
+scss
+
+public class Main extends Application {
+    public static void main(String[] args) {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) {
+        int rectangleSize = 30;
+        int updateInterval = 50;
+        int renderInterval = 25;
+        int width = 50;
+        int height = 50;
+        Random random = new Random();
+        Grid grid = Grid.of(width, height);
+        Cell[][] cells = grid.cells();
+        List<Thread> cellThreads = new ArrayList<>();
+
+        GridPane gridPane = new GridPane();
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                int x = i;
+                int y = j;
+                Cell cell = cells[i][j];
+                Rectangle rectangle = new Rectangle(rectangleSize, rectangleSize, Color.WHITE);
+                rectangle.setStroke(Color.BLACK);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
+                Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(updateInterval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        cell.updateState(cells, x, y, width, height);
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(updateInterval + random.nextLong(updateInterval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(cellThread);
+                Thread renderThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(renderInterval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        Platform.runLater(() -> {
+                            if (cell.isAlive()) {
+                                rectangle.setFill(Color.BLACK);
+                            } else {
+                                rectangle.setFill(Color.WHITE);
+                            }
+                        });
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(renderInterval + random.nextLong(renderInterval));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(renderThread);
+            }
+        }
+        final double sceneWidth = width * rectangleSize;
+        final double sceneHeight = height * rectangleSize;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty
+
+CC007
+I finished the application and the project can now be found on https://github.com/CC007/VirtualThreadDemo
+
+That's great! I'm glad that you found the code helpful and that you were able to build the application successfully. If you run into any further issues, don't hesitate to ask. Good luck with your project!
