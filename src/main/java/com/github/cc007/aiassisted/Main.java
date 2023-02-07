@@ -10,6 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -27,7 +29,7 @@ public class Main extends Application {
         Cell[][] cells = grid.cells();
         List<Thread> cellThreads = new ArrayList<>();
 
-        GridPane root = new GridPane();
+        GridPane gridPane = new GridPane();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 int x = i;
@@ -35,7 +37,8 @@ public class Main extends Application {
                 Cell cell = cells[i][j];
                 Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
                 rectangle.setStroke(Color.BLACK);
-                root.add(rectangle, j, i);
+                rectangle.setStrokeType(StrokeType.INSIDE);
+                gridPane.add(rectangle, j, i);
                 Thread cellThread = Thread.ofVirtual().start(() -> {
                     try {
                         TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
@@ -59,8 +62,19 @@ public class Main extends Application {
                 cellThreads.add(cellThread);
             }
         }
-
-        primaryStage.setScene(new Scene(root, width * 30, height * 30));
+        final double sceneWidth = width * 30;
+        final double sceneHeight = height * 30;
+        final double aspectRatio = sceneWidth / sceneHeight;
+        final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
+        
+        Scale scale = new Scale();
+        scale.xProperty().bind(gridPane.widthProperty().divide(sceneWidth));
+        scale.yProperty().bind(gridPane.heightProperty().divide(sceneHeight));
+        gridPane.getTransforms().add(scale);
+        
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(scene.heightProperty().multiply(aspectRatio));
+        primaryStage.minHeightProperty().bind(scene.widthProperty().divide(aspectRatio));
         primaryStage.show();
     }
 }
