@@ -30,7 +30,6 @@ public class Main extends Application {
         Random random = new Random();
         Grid grid = Grid.of(width, height);
         Cell[][] cells = grid.cells();
-        List<Thread> cellThreads = new ArrayList<>();
 
         GridPane gridPane = new GridPane();
         for (int i = 0; i < height; i++) {
@@ -42,7 +41,7 @@ public class Main extends Application {
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setStrokeType(StrokeType.INSIDE);
                 gridPane.add(rectangle, j, i);
-                Thread cellThread = Thread.ofVirtual().start(() -> {
+                Thread.ofVirtual().start(() -> {
                     try {
                         TimeUnit.MICROSECONDS.sleep(random.nextLong(updateIntervalNs));
                     } catch (InterruptedException e) {
@@ -57,8 +56,7 @@ public class Main extends Application {
                         }
                     }
                 });
-                cellThreads.add(cellThread);
-                Thread renderThread = Thread.ofVirtual().start(() -> {
+                Thread.ofVirtual().start(() -> {
                     try {
                         TimeUnit.MILLISECONDS.sleep(random.nextLong(renderIntervalMs));
                     } catch (InterruptedException e) {
@@ -79,7 +77,6 @@ public class Main extends Application {
                         }
                     }
                 });
-                cellThreads.add(renderThread);
             }
         }
         final double sceneWidth = width * rectangleSize;
