@@ -2,6 +2,7 @@ package com.github.cc007.aiassisted;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
@@ -18,8 +19,10 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
+        int interval = 1000;
         int width = 10;
         int height = 10;
+        Random random = new Random();
         Grid grid = Grid.of(width, height);
         Cell[][] cells = grid.cells();
         List<Thread> cellThreads = new ArrayList<>();
@@ -34,6 +37,11 @@ public class Main extends Application {
                 rectangle.setStroke(Color.BLACK);
                 root.add(rectangle, j, i);
                 Thread cellThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
                     while (true) {
                         cell.updateState(cells, x, y, width, height);
                         if (cell.isAlive()) {
@@ -42,7 +50,7 @@ public class Main extends Application {
                             rectangle.setFill(Color.WHITE);
                         }
                         try {
-                            TimeUnit.SECONDS.sleep(1);
+                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
                         } catch (InterruptedException e) {
                             break;
                         }
@@ -54,14 +62,5 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root, width * 30, height * 30));
         primaryStage.show();
-
-        // Wait for all cell threads to finish
-        for (Thread cellThread : cellThreads) {
-            try {
-                cellThread.join();
-            } catch (InterruptedException e) {
-                // ...
-            }
-        }
     }
 }
