@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,9 +22,11 @@ public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        int interval = 1000;
-        int width = 10;
-        int height = 10;
+        int rectangleSize = 30;
+        int updateIntervalNs = 500;
+        int renderIntervalMs = 100;
+        int width = 50;
+        int height = 50;
         Random random = new Random();
         Grid grid = Grid.of(width, height);
         Cell[][] cells = grid.cells();
@@ -35,35 +38,52 @@ public class Main extends Application {
                 int x = i;
                 int y = j;
                 Cell cell = cells[i][j];
-                Rectangle rectangle = new Rectangle(30, 30, Color.WHITE);
+                Rectangle rectangle = new Rectangle(rectangleSize, rectangleSize, Color.WHITE);
                 rectangle.setStroke(Color.BLACK);
                 rectangle.setStrokeType(StrokeType.INSIDE);
                 gridPane.add(rectangle, j, i);
                 Thread cellThread = Thread.ofVirtual().start(() -> {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(random.nextLong(interval));
+                        TimeUnit.MICROSECONDS.sleep(random.nextLong(updateIntervalNs));
                     } catch (InterruptedException e) {
                         return;
                     }
                     while (true) {
                         cell.updateState(cells, x, y, width, height);
-                        if (cell.isAlive()) {
-                            rectangle.setFill(Color.BLACK);
-                        } else {
-                            rectangle.setFill(Color.WHITE);
-                        }
                         try {
-                            TimeUnit.MILLISECONDS.sleep(interval / 2 + random.nextLong(interval));
+                            TimeUnit.MICROSECONDS.sleep(updateIntervalNs + random.nextLong(updateIntervalNs));
                         } catch (InterruptedException e) {
                             break;
                         }
                     }
                 });
                 cellThreads.add(cellThread);
+                Thread renderThread = Thread.ofVirtual().start(() -> {
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(random.nextLong(renderIntervalMs));
+                    } catch (InterruptedException e) {
+                        return;
+                    }
+                    while (true) {
+                        Platform.runLater(() -> {
+                            if (cell.isAlive()) {
+                                rectangle.setFill(Color.BLACK);
+                            } else {
+                                rectangle.setFill(Color.WHITE);
+                            }
+                        });
+                        try {
+                            TimeUnit.MILLISECONDS.sleep(renderIntervalMs + random.nextLong(renderIntervalMs));
+                        } catch (InterruptedException e) {
+                            break;
+                        }
+                    }
+                });
+                cellThreads.add(renderThread);
             }
         }
-        final double sceneWidth = width * 30;
-        final double sceneHeight = height * 30;
+        final double sceneWidth = width * rectangleSize;
+        final double sceneHeight = height * rectangleSize;
         final double aspectRatio = sceneWidth / sceneHeight;
         final Scene scene = new Scene(gridPane, sceneWidth, sceneHeight);
         
